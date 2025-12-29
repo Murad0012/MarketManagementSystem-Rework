@@ -1,4 +1,33 @@
 ﻿<Properties StartupConfiguration="{9101C5A6-179D-4852-817A-BE6595F74562}|Default">
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <MonoDevelop.Ide.ItemProperties.MarketSystem PreferredExecutionTarget="MonoDevelop.Default" FirstBuild="True" />
   <MultiItemStartupConfigurations />
-  <MonoDevelop.Ide.ItemProperties.MarketSystem FirstBuild="True" />
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="MarketSystem/Program.cs">
+    <Files>
+      <File FileName="MarketSystem/Program.cs" Line="11" Column="1" />
+    </Files>
+    <Pads>
+      <Pad Id="ProjectPad">
+        <State name="__root__">
+          <Node name="MarketSystem">
+            <Node name="MarketSystem">
+              <Node name="Concrete" expanded="True" />
+              <Node name="Data" expanded="True">
+                <Node name="Common" expanded="True" />
+                <Node name="Enums" expanded="True" />
+                <Node name="Models" expanded="True" />
+              </Node>
+              <Node name="Helpers" expanded="True" />
+              <Node name="Services" expanded="True" />
+              <Node name="Program.cs" selected="True" />
+            </Node>
+          </Node>
+        </State>
+      </Pad>
+    </Pads>
+  </MonoDevelop.Ide.Workbench>
 </Properties>
