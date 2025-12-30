@@ -1,25 +1,11 @@
 ﻿<Properties StartupConfiguration="{9101C5A6-179D-4852-817A-BE6595F74562}|Default">
-  <MonoDevelop.Ide.DebuggingService.Breakpoints>
-    <BreakpointStore />
-  </MonoDevelop.Ide.DebuggingService.Breakpoints>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />
-  <MultiItemStartupConfigurations />
-  <MonoDevelop.Ide.ItemProperties.MarketSystem FirstBuild="True" PreferredExecutionTarget="MonoDevelop.Default" />
   <MonoDevelop.Ide.Workbench>
     <Pads>
       <Pad Id="ProjectPad">
         <State name="__root__">
           <Node name="MarketSystem">
             <Node name="MarketSystem">
-              <Node name="Concrete" expanded="True" />
-              <Node name="Data" expanded="True">
-                <Node name="Common" expanded="True" />
-                <Node name="Enums" expanded="True" />
-                <Node name="Models" expanded="True" />
-              </Node>
-              <Node name="Services" expanded="True">
-                <Node name="Abstract" expanded="True" />
-              </Node>
               <Node name="Program.cs" selected="True" />
             </Node>
           </Node>
@@ -27,5 +13,10 @@
       </Pad>
     </Pads>
   </MonoDevelop.Ide.Workbench>
+  <MultiItemStartupConfigurations />
+  <MonoDevelop.Ide.ItemProperties.MarketSystem PreferredExecutionTarget="MonoDevelop.Default" />
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
 </Properties>

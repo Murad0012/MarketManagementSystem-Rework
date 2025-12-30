@@ -3,9 +3,7 @@ namespace MarketSystem.Data.Common
 {
 	public class BaseModel
 	{
-		public BaseModel()
-		{
-		}
+		public int ID { get; set; }
 	}
 }
 

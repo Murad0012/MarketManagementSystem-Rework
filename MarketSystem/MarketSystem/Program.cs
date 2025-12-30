@@ -14,7 +14,7 @@ class Program
             Console.WriteLine("1.For managing Product");
             Console.WriteLine("2.For managing Sale");
 
-            Console.WriteLine("0. Exit");
+            Console.WriteLine("0.Exit");
             Console.WriteLine("----------------------------");
             Console.WriteLine("Please, select an option:");
 

@@ -1,11 +1,21 @@
 ﻿using System;
+using MarketSystem.Data.Common;
+
 namespace MarketSystem.Data.Models
 {
-	public class Sale
+	public class Sale : BaseModel
 	{
-		public Sale()
+        private static int id { get; set; }
+
+        public Sale()
 		{
-		}
-	}
+            ID = id;
+            id++;
+        }
+
+        public decimal Amount { get; set; }
+        public List<SaleItem> SaleItems { get; set; }
+        public DateTime Date { get; set; }
+    }
 }
 

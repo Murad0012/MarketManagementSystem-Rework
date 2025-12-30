@@ -1,0 +1,5 @@
+/Users/muradmammadzada/Desktop/Console Application/MarketSystem/MarketSystem/obj/Debug/net7.0/MarketSystem.csproj.AssemblyReference.cache
+/Users/muradmammadzada/Desktop/Console Application/MarketSystem/MarketSystem/obj/Debug/net7.0/MarketSystem.GeneratedMSBuildEditorConfig.editorconfig
+/Users/muradmammadzada/Desktop/Console Application/MarketSystem/MarketSystem/obj/Debug/net7.0/MarketSystem.AssemblyInfoInputs.cache
+/Users/muradmammadzada/Desktop/Console Application/MarketSystem/MarketSystem/obj/Debug/net7.0/MarketSystem.AssemblyInfo.cs
+/Users/muradmammadzada/Desktop/Console Application/MarketSystem/MarketSystem/obj/Debug/net7.0/MarketSystem.csproj.CoreCompileInputs.cache

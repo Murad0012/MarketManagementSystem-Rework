@@ -14,10 +14,10 @@ namespace MarketSystem.Helpers
                 Console.WriteLine("3.Delete Product");
                 Console.WriteLine("4.Show Products");
                 Console.WriteLine("5.Get Product by category");
-                Console.WriteLine("6. Get Product by Price range");
-                Console.WriteLine("7. Get Product by name");
+                Console.WriteLine("6.Get Product by Price range");
+                Console.WriteLine("7.Get Product by name");
 
-                Console.WriteLine("0. Exit");
+                Console.WriteLine("0.Exit");
                 Console.WriteLine("----------------------------");
                 Console.WriteLine("Please, select an option:");
 
@@ -33,7 +33,6 @@ namespace MarketSystem.Helpers
                     case 2:
                         break;
                     case 0:
-                        Console.WriteLine("Bye!");
                         break;
                     default:
                         Console.WriteLine("No such option!");
@@ -57,7 +56,7 @@ namespace MarketSystem.Helpers
                 Console.WriteLine("7.Get Sales by date");
                 Console.WriteLine("8.Get Sales by ID");
 
-                Console.WriteLine("0. Exit");
+                Console.WriteLine("0.Exit");
                 Console.WriteLine("----------------------------");
                 Console.WriteLine("Please, select an option:");
 
@@ -73,7 +72,6 @@ namespace MarketSystem.Helpers
                     case 2:
                         break;
                     case 0:
-                        Console.WriteLine("Bye!");
                         break;
                     default:
                         Console.WriteLine("No such option!");
