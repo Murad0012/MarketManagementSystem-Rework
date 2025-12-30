@@ -1,8 +1,11 @@
 {
   "version": 2,
-  "dgSpecHash": "r6IBkzCGUSZWdlky02y11c58ZhOYtKGESFRmby+/tduV3+8xTJW9GTayekvuUP9+uoHL//LpOl4IYU9k4kFK3Q==",
+  "dgSpecHash": "MHwaPlUYdr7X/fBnJ/jotHPKbsEl2mwrRMaXQbGfUJQBXhfjdCQrkp4fwZs3upCdrvPx5lUSQ8yrj0Kl0XrpNw==",
   "success": true,
   "projectFilePath": "/Users/muradmammadzada/Desktop/Console Application/MarketSystem/MarketSystem/MarketSystem.csproj",
-  "expectedPackageFiles": [],
+  "expectedPackageFiles": [
+    "/Users/muradmammadzada/.nuget/packages/consoletables/2.7.0/consoletables.2.7.0.nupkg.sha512",
+    "/Users/muradmammadzada/.nuget/packages/wcwidth/1.0.0/wcwidth.1.0.0.nupkg.sha512"
+  ],
   "logs": []
 }

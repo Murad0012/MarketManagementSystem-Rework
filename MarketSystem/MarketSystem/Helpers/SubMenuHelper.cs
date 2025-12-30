@@ -1,4 +1,6 @@
 ﻿using System;
+using MarketSystem.Services.Concrete;
+
 namespace MarketSystem.Helpers
 {
 	public class SubMenuHelper
@@ -29,8 +31,10 @@ namespace MarketSystem.Helpers
                 switch (selectOption)
                 {
                     case 1:
+                        MenuService.MenuAddProduct();
                         break;
                     case 2:
+                        
                         break;
                     case 0:
                         break;

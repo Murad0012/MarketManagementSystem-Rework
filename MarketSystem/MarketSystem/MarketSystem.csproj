@@ -15,7 +15,7 @@
     <None Remove="Helpers\" />
     <None Remove="Services\" />
     <None Remove="Services\Abstract\" />
-    <None Remove="Concrete\" />
+    <None Remove="Services\Concrete\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Data\" />
@@ -25,6 +25,9 @@
     <Folder Include="Helpers\" />
     <Folder Include="Services\" />
     <Folder Include="Services\Abstract\" />
-    <Folder Include="Concrete\" />
+    <Folder Include="Services\Concrete\" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="ConsoleTables" Version="2.7.0" />
   </ItemGroup>
 </Project>

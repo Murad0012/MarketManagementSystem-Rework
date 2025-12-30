@@ -5,7 +5,7 @@ namespace MarketSystem.Data.Models
 {
 	public class Sale : BaseModel
 	{
-        private static int id { get; set; }
+        private static int id;
 
         public Sale()
 		{

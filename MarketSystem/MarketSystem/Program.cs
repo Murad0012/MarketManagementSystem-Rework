@@ -1,4 +1,5 @@
-﻿using MarketSystem.Helpers;
+﻿using MarketSystem.Data.Models;
+using MarketSystem.Helpers;
 
 namespace MarketSystem;
 
