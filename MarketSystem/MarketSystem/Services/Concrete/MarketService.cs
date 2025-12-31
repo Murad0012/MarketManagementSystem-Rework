@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using MarketSystem.Data.Enums;
 using MarketSystem.Data.Models;
 using MarketSystem.Services.Abstract;
@@ -8,6 +9,11 @@ namespace MarketSystem.Services.Concrete
     public class MarketService : IMarketable
     {
         private List<Product> _products = new();
+
+        public List<Product> GetProducts()
+        {
+            return _products;
+        }
 
         public int AddProduct(string name, decimal price, Category category, int count)
         {
@@ -44,22 +50,47 @@ namespace MarketSystem.Services.Concrete
             return product.ID;
         }
 
-        public void AddSale()
+        public void UpdateProduct(int id, string name, decimal price, Category category, int count)
         {
-            throw new NotImplementedException();
+            var product = _products.FirstOrDefault(p => p.ID == id);
+
+            if (product == null)
+                throw new Exception($"Product with ID:{id} was not found! ");
+
+            if (string.IsNullOrWhiteSpace(name))
+                throw new Exception("Name of product can't be empty!");
+
+            if (price < 0)
+                throw new Exception("Price of product can't be less than zero!");
+
+            if (count < 0)
+                throw new Exception("Count of product can't be less than zero!");
+
+
+            product!.Name = name;
+            product.Category = category;
+            product.Count = count;
+            product.Price = price;
+
         }
 
         public void DeleteProduct(int id)
         {
-            throw new NotImplementedException();
+            if (id < 0)
+                throw new Exception("ID of product can't be less than zero!");
+
+            var product = _products.FirstOrDefault(p => p.ID == id);
+
+            _products.Remove(product!);
         }
+
 
         public void DeleteSale(int id)
         {
             throw new NotImplementedException();
         }
-
-        public List<Product> GetProducts()
+        
+        public void AddSale()
         {
             throw new NotImplementedException();
         }
@@ -109,10 +140,6 @@ namespace MarketSystem.Services.Concrete
             throw new NotImplementedException();
         }
 
-        public void UpdateProduct(int id)
-        {
-            throw new NotImplementedException();
-        }
     }
 }
 

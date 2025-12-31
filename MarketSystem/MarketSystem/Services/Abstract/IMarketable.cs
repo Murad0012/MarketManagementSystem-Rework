@@ -6,8 +6,8 @@ namespace MarketSystem.Services.Abstract
 {
 	public interface IMarketable
 	{
-		public int AddProduct(string name, decimal Price, Category Category, int count);
-		public void UpdateProduct(int id);
+		public int AddProduct(string name, decimal price, Category category, int count);
+		public void UpdateProduct(int id, string name, decimal price, Category category, int count);
 		public void DeleteProduct(int id);
 		public List<Product> GetProducts();
         public List<Product> GetProductsByCategory(Category category);

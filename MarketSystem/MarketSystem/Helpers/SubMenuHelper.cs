@@ -34,7 +34,13 @@ namespace MarketSystem.Helpers
                         MenuService.MenuAddProduct();
                         break;
                     case 2:
-                        
+                        MenuService.MenuUpdateProduct(); // not ready 
+                        break;
+                    case 3:
+                        MenuService.MenuDeleteProduct();
+                        break;
+                    case 4:
+                        MenuService.MenuGetProducts();
                         break;
                     case 0:
                         break;

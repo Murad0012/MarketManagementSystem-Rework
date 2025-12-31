@@ -1,22 +1,17 @@
 ﻿<Properties StartupConfiguration="{9101C5A6-179D-4852-817A-BE6595F74562}|Default">
   <MonoDevelop.Ide.ItemProperties.MarketSystem PreferredExecutionTarget="MonoDevelop.Default" />
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
   <MultiItemStartupConfigurations />
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
   <MonoDevelop.Ide.Workbench>
     <Pads>
       <Pad Id="ProjectPad">
         <State name="__root__">
           <Node name="MarketSystem">
             <Node name="MarketSystem">
-              <Node name="Data" expanded="True">
-                <Node name="Models" expanded="True" />
-              </Node>
-              <Node name="Helpers" expanded="True" />
-              <Node name="Services" expanded="True">
-                <Node name="Abstract" expanded="True" />
-                <Node name="Concrete" expanded="True">
-                  <Node name="MenuService.cs" selected="True" />
+              <Node name="Services">
+                <Node name="Abstract">
+                  <Node name="IMarketable.cs" selected="True" />
                 </Node>
               </Node>
             </Node>
