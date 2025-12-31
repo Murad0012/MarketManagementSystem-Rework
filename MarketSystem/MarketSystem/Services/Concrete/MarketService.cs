@@ -10,6 +10,8 @@ namespace MarketSystem.Services.Concrete
     {
         private List<Product> _products = new();
 
+        // Ready
+
         public List<Product> GetProducts()
         {
             return _products;
@@ -84,6 +86,40 @@ namespace MarketSystem.Services.Concrete
             _products.Remove(product!);
         }
 
+        public List<Product> GetProductsByCategory(Category category)
+        {
+            var products = _products.Where(p => p.Category == category).ToList();
+
+            return products;
+        }
+
+        public List<Product> GetProductsByPriceRange(int minPrice, int maxPrice)
+        {
+            if (minPrice > maxPrice)
+                throw new Exception("Min price can't be higher than maxPrice");
+
+            if (minPrice < 0)
+                throw new Exception("Min price can't be less than zero");
+
+            if (maxPrice < 0)
+                throw new Exception("Max price can't be less than zero");
+
+            var products = _products.Where(p => p.Price >= minPrice && p.Price <= maxPrice).ToList();
+
+            return products;
+        }
+
+        public List<Product> GetProductsByName(string name)
+        {
+            if (string.IsNullOrWhiteSpace(name))
+                throw new Exception("Name of product can't be empty!");
+
+            var products = _products.Where(p => p.Name.ToLower().Contains(name.ToLower())).ToList();
+
+            return products;
+        }
+
+        // Unready
 
         public void DeleteSale(int id)
         {
@@ -95,20 +131,9 @@ namespace MarketSystem.Services.Concrete
             throw new NotImplementedException();
         }
 
-        public List<Product> GetProductsByCategory(Category category)
-        {
-            throw new NotImplementedException();
-        }
+        
 
-        public List<Product> GetProductsByName(string name)
-        {
-            throw new NotImplementedException();
-        }
-
-        public List<Product> GetProductsByPriceRange(int minPrice, int maxPrice)
-        {
-            throw new NotImplementedException();
-        }
+        
 
         public List<Sale> GetSale(int id)
         {

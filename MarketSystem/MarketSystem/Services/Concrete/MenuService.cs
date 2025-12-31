@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Reflection.Emit;
 using ConsoleTables;
 using MarketSystem.Data.Enums;
 using MarketSystem.Data.Models;
@@ -37,7 +38,6 @@ namespace MarketSystem.Services.Concrete
                 Console.WriteLine("Enter product's name:");
                 string name = Console.ReadLine()!;
 
-				Console.WriteLine("Enter product's category: ");
 				var table = new ConsoleTable("Category");
 
                 var categories = Enum.GetNames(typeof(Category));
@@ -51,7 +51,7 @@ namespace MarketSystem.Services.Concrete
 				table.Write();
 
                 Console.WriteLine("Enter product's category:");
-                Category category = (Category)Enum.Parse(typeof(Category), Console.ReadLine()!);
+                Category category = Enum.Parse<Category>(Console.ReadLine()!);
 
                 Console.WriteLine("Enter product's price: ");
 				decimal price = decimal.Parse(Console.ReadLine()!);
@@ -113,7 +113,7 @@ namespace MarketSystem.Services.Concrete
                 table.Write();
 
                 Console.WriteLine("Enter product's category:");
-                Category category = (Category)Enum.Parse(typeof(Category), Console.ReadLine()!);
+                Category category = Enum.Parse<Category>(Console.ReadLine()!);
 
                 Console.WriteLine("Enter product's price: ");
                 decimal price = decimal.Parse(Console.ReadLine()!);
@@ -132,6 +132,98 @@ namespace MarketSystem.Services.Concrete
 			}
 		}
 
+        public static void MenuGetProductsByCategory()
+        {
+            try
+            {
+                var table1 = new ConsoleTable("Category");
+
+                var categories = Enum.GetNames(typeof(Category));
+
+                int option = 1;
+                foreach (string item in categories)
+                {
+                    table1.AddRow($"{item} - {option++}");
+                }
+
+                table1.Write();
+
+                Console.WriteLine("Enter product's category:");
+                if (!Enum.TryParse<Category>(Console.ReadLine(), out var category))
+                {
+                    Console.WriteLine("Invalid category.");
+                    return;
+                }
+
+                var products = marketService.GetProductsByCategory(category);
+
+                var table2 = new ConsoleTable("ID", "Name", "Category", "Count", "Price");
+
+                foreach (var product in products!)
+                {
+                    table2.AddRow(product.ID, product.Name, product.Category, product.Count, product.Price);
+                }
+
+                table2.Write();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+        }
+
+        public static void MenuGetProductsByPriceRange()
+        {
+            try
+            {
+                Console.WriteLine("Enter min Price: ");
+                int minPrice = int.Parse(Console.ReadLine()!);
+
+                Console.WriteLine("Enter max Price: ");
+                int maxPrice = int.Parse(Console.ReadLine()!);
+
+                var products = marketService.GetProductsByPriceRange(minPrice, maxPrice);
+
+                var table = new ConsoleTable("ID", "Name", "Category", "Count", "Price");
+
+                foreach (var product in products!)
+                {
+                    table.AddRow(product.ID, product.Name, product.Category, product.Count, product.Price);
+                }
+
+                table.Write();
+
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+        }
+
+        public static void MenuGetProductsByName()
+        {
+            try
+            {
+                Console.WriteLine("Enter product's name:");
+                string name = Console.ReadLine()!;
+
+                var products = marketService.GetProductsByName(name);
+
+                var table = new ConsoleTable("ID", "Name", "Category", "Count", "Price");
+
+                foreach (var product in products!)
+                {
+                    table.AddRow(product.ID, product.Name, product.Category, product.Count, product.Price);
+                }
+
+                table.Write();
+
+            }
+            catch(Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+        }
     }
 }
 

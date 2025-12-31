@@ -34,13 +34,22 @@ namespace MarketSystem.Helpers
                         MenuService.MenuAddProduct();
                         break;
                     case 2:
-                        MenuService.MenuUpdateProduct(); // not ready 
+                        MenuService.MenuUpdateProduct(); 
                         break;
                     case 3:
                         MenuService.MenuDeleteProduct();
                         break;
                     case 4:
                         MenuService.MenuGetProducts();
+                        break;
+                    case 5:
+                        MenuService.MenuGetProductsByCategory();
+                        break;
+                    case 6:
+                        MenuService.MenuGetProductsByPriceRange();
+                        break;
+                    case 7:
+                        MenuService.MenuGetProductsByName();
                         break;
                     case 0:
                         break;
