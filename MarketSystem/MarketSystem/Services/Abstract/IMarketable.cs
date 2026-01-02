@@ -19,9 +19,9 @@ namespace MarketSystem.Services.Abstract
         public void DeleteSale(int id);
         public List<Sale> GetSales();
         public List<Sale> GetSalesByDateRange(DateTime minDate, DateTime maxDate);
-        public List<Sale> GetSalesByAmount(int minAmount, int maxAmount);
+        public List<Sale> GetSalesByAmountRange(int minAmount, int maxAmount);
         public List<Sale> GetSalesByDate(DateTime date);
-        public List<Sale> GetSale(int id);
+        public Sale GetSale(int id);
 
     }
 }

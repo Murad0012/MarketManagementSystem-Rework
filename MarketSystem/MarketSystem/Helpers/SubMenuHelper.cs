@@ -3,10 +3,10 @@ using MarketSystem.Services.Concrete;
 
 namespace MarketSystem.Helpers
 {
-	public class SubMenuHelper
-	{
-		public static void DisplayProductMenu()
-		{
+    public class SubMenuHelper
+    {
+        public static void DisplayProductMenu()
+        {
             int selectOption;
 
             do
@@ -89,6 +89,23 @@ namespace MarketSystem.Helpers
                     case 1:
                         break;
                     case 2:
+                        break;
+                    case 3:
+                        break;
+                    case 4:
+                        MenuService.MenuGetSales();
+                        break;
+                    case 5:
+                        MenuService.MenuGetSalesByDateRange();
+                        break;
+                    case 6:
+                        MenuService.MenuGetSalesByAmountRange();
+                        break;
+                    case 7:
+                        MenuService.MenuGetSalesByDate();
+                        break;
+                    case 8:
+                        MenuService.MenuGetSale();
                         break;
                     case 0:
                         break;

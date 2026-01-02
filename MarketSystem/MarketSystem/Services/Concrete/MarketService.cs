@@ -9,9 +9,9 @@ namespace MarketSystem.Services.Concrete
     public class MarketService : IMarketable
     {
         private List<Product> _products = new();
-
+        private List<Sale> _sales = new();
         // Ready
-
+        // Product methods
         public List<Product> GetProducts()
         {
             return _products;
@@ -96,7 +96,7 @@ namespace MarketSystem.Services.Concrete
         public List<Product> GetProductsByPriceRange(int minPrice, int maxPrice)
         {
             if (minPrice > maxPrice)
-                throw new Exception("Min price can't be higher than maxPrice");
+                throw new Exception("Min price can't be higher than max price");
 
             if (minPrice < 0)
                 throw new Exception("Min price can't be less than zero");
@@ -119,6 +119,58 @@ namespace MarketSystem.Services.Concrete
             return products;
         }
 
+        // Sale Methods
+        public List<Sale> GetSales()
+        {
+            return _sales;
+        }
+
+        public Sale GetSale(int id)
+        {
+            if (id < 0)
+                throw new Exception("ID of product can't be less than zero!");
+
+            var sale = _sales.FirstOrDefault(s => s.ID == id);
+
+            if (sale == null)
+                throw new Exception("Sale was not found!");
+
+            return sale!;
+        }
+
+        public List<Sale> GetSalesByAmountRange(int minAmount, int maxAmount)
+        {
+            if(minAmount > maxAmount)
+                throw new Exception("Min amount can't be higher than max amount");
+
+            if (minAmount < 0)
+                throw new Exception("Min amount can't be less than zero");
+
+            if (maxAmount < 0)
+                throw new Exception("Max amount can't be less than zero");
+
+            var sales = _sales.Where(s => s.Amount >= minAmount && s.Amount <= maxAmount).ToList();
+
+            return sales;
+        }
+
+        public List<Sale> GetSalesByDate(DateTime date)
+        {
+            var sales = _sales.Where(s => s.Date == date).ToList();
+
+            return sales;
+        }
+
+        public List<Sale> GetSalesByDateRange(DateTime minDate, DateTime maxDate)
+        {
+            if (minDate > maxDate)
+                throw new Exception("Min date can't be higher than max date");
+
+            var sales = _sales.Where(s => s.Date >= minDate && s.Date <= maxDate).ToList();
+
+            return sales;
+        }
+
         // Unready
 
         public void DeleteSale(int id)
@@ -127,35 +179,6 @@ namespace MarketSystem.Services.Concrete
         }
         
         public void AddSale()
-        {
-            throw new NotImplementedException();
-        }
-
-        
-
-        
-
-        public List<Sale> GetSale(int id)
-        {
-            throw new NotImplementedException();
-        }
-
-        public List<Sale> GetSales()
-        {
-            throw new NotImplementedException();
-        }
-
-        public List<Sale> GetSalesByAmount(int minAmount, int maxAmount)
-        {
-            throw new NotImplementedException();
-        }
-
-        public List<Sale> GetSalesByDate(DateTime date)
-        {
-            throw new NotImplementedException();
-        }
-
-        public List<Sale> GetSalesByDateRange(DateTime minDate, DateTime maxDate)
         {
             throw new NotImplementedException();
         }

@@ -4,6 +4,7 @@ using ConsoleTables;
 using MarketSystem.Data.Enums;
 using MarketSystem.Data.Models;
 using MarketSystem.Services.Abstract;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace MarketSystem.Services.Concrete
 {
@@ -218,6 +219,128 @@ namespace MarketSystem.Services.Concrete
 
                 table.Write();
 
+            }
+            catch(Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+        }
+
+
+        public static void MenuGetSales()
+        {
+            var sales = marketService.GetSales();
+
+            var table = new ConsoleTable("ID", "Amount", "Products Count", "Date");
+
+            foreach (var sale in sales)
+            {
+                table.AddRow(sale.ID, sale.Amount, sale.SaleItems.Count, sale.Date);
+            }
+
+            table.Write();
+
+        }
+
+        public static void MenuGetSale()
+        {
+            try
+            {
+                Console.WriteLine("Enter product's ID: ");
+                int id = int.Parse(Console.ReadLine()!);
+
+                var sale = marketService.GetSale(id);
+
+                var table1 = new ConsoleTable("Sale ID", "Amount", "Products Count", "Date");
+
+                table1.AddRow(sale.ID, sale.Amount, sale.SaleItems.Count(), sale.Date);
+                
+                table1.Write();
+                Console.WriteLine("====================================================");
+
+                var table2 = new ConsoleTable("Product ID", "Name", "Count");
+
+                foreach (var saleItem in sale.SaleItems)
+                {
+                    table2.AddRow(saleItem.ID, saleItem.Product.Name, saleItem.Count);
+                }
+
+                table2.Write();
+                Console.WriteLine("====================================================");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+        }
+
+        public static void MenuGetSalesByAmountRange()
+        {
+            try
+            {
+                Console.WriteLine("Enter min amount: ");
+                int minAmount = int.Parse(Console.ReadLine()!);
+
+                Console.WriteLine("Enter max amount: ");
+                int maxAmount = int.Parse(Console.ReadLine()!);
+
+                var sales = marketService.GetSalesByAmountRange(minAmount,maxAmount);
+
+                var table = new ConsoleTable("ID", "Amount", "Products Count", "Date");
+
+                foreach (var sale in sales)
+                {
+                    table.AddRow(sale.ID, sale.Amount, sale.SaleItems.Count, sale.Date);
+                }
+
+                table.Write();
+            }
+            catch(Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+        }
+
+        public static void MenuGetSalesByDate()
+        {
+            try
+            {
+                Console.WriteLine("Enter date (dd.MM.yyyy HH:mm:ss):");
+                var date = DateTime.ParseExact(Console.ReadLine()!, "dd.MM.yyyy HH:mm:ss", null);
+
+                var table = new ConsoleTable("Sale's ID", "Amount", "Date");
+
+                foreach (var sale in marketService.GetSalesByDate(date))
+                {
+                    table.AddRow(sale.ID, sale.Amount, sale.SaleItems.Count, sale.Date);
+                }
+
+                table.Write();
+            }
+            catch(Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+        }
+
+        public static void MenuGetSalesByDateRange()
+        {
+            try
+            {
+                Console.WriteLine("Enter min date (dd.MM.yyyy HH:mm:ss):");
+                var minDate = DateTime.ParseExact(Console.ReadLine()!, "dd.MM.yyyy HH:mm:ss", null);
+
+                Console.WriteLine("Enter max date (dd.MM.yyyy HH:mm:ss):");
+                var maxDate = DateTime.ParseExact(Console.ReadLine()!, "dd.MM.yyyy HH:mm:ss", null);
+
+                var table = new ConsoleTable("Sale's ID", "Amount", "Products Count", "Date");
+
+                foreach (var sale in marketService.GetSalesByDateRange(minDate, maxDate))
+                {
+                    table.AddRow(sale.ID, sale.Amount, sale.SaleItems.Count, sale.Date);
+                }
+
+                table.Write();
             }
             catch(Exception ex)
             {
