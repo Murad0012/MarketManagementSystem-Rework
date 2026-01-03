@@ -90,8 +90,10 @@ namespace MarketSystem.Helpers
                         MenuService.MenuAddSale();
                         break;
                     case 2:
+                        MenuService.MenuReturnProductFromSale();
                         break;
                     case 3:
+                        MenuService.MenuDeleteSale();
                         break;
                     case 4:
                         MenuService.MenuGetSales();

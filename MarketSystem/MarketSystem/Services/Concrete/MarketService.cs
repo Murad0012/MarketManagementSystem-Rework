@@ -11,7 +11,7 @@ namespace MarketSystem.Services.Concrete
     {
         private List<Product> _products = new();
         private List<Sale> _sales = new();
-        // Ready
+
         // Product methods
         public List<Product> GetProducts()
         {
@@ -82,10 +82,8 @@ namespace MarketSystem.Services.Concrete
             if (id < 0)
                 throw new Exception("ID of product can't be less than zero!");
 
-            var product = _products.FirstOrDefault(p => p.ID == id);
-
-            if (product == null)
-                throw new Exception("Product wasn't found");
+            var product = _products.FirstOrDefault(p => p.ID == id)
+                ?? throw new Exception("Product wasn't found");
 
             _products.Remove(product!);
         }
@@ -142,47 +140,7 @@ namespace MarketSystem.Services.Concrete
             return sale!;
         }
 
-        public List<Sale> GetSalesByAmountRange(int minAmount, int maxAmount)
-        {
-            if(minAmount > maxAmount)
-                throw new Exception("Min amount can't be higher than max amount");
-
-            if (minAmount < 0)
-                throw new Exception("Min amount can't be less than zero");
-
-            if (maxAmount < 0)
-                throw new Exception("Max amount can't be less than zero");
-
-            var sales = _sales.Where(s => s.Amount >= minAmount && s.Amount <= maxAmount).ToList();
-
-            return sales;
-        }
-
-        public List<Sale> GetSalesByDate(DateTime date)
-        {
-            var sales = _sales.Where(s => s.Date == date).ToList();
-
-            return sales;
-        }
-
-        public List<Sale> GetSalesByDateRange(DateTime minDate, DateTime maxDate)
-        {
-            if (minDate > maxDate)
-                throw new Exception("Min date can't be higher than max date");
-
-            var sales = _sales.Where(s => s.Date >= minDate && s.Date <= maxDate).ToList();
-
-            return sales;
-        }
-
-        // Unready
-
-        public void DeleteSale(int id)
-        {
-            throw new NotImplementedException();
-        }
-        
-        public void AddSale(Dictionary<int, int> products) 
+        public void AddSale(Dictionary<int, int> products)
         {
             foreach (var item in products)
             {
@@ -225,9 +183,102 @@ namespace MarketSystem.Services.Concrete
             _sales.Add(sale);
         }
 
-        public void ReturnProductFromSale(int saleId, int productId, int count)
+        public List<Sale> GetSalesByAmountRange(int minAmount, int maxAmount)
         {
-            throw new NotImplementedException();
+            if(minAmount > maxAmount)
+                throw new Exception("Min amount can't be higher than max amount");
+
+            if (minAmount < 0)
+                throw new Exception("Min amount can't be less than zero");
+
+            if (maxAmount < 0)
+                throw new Exception("Max amount can't be less than zero");
+
+            var sales = _sales.Where(s => s.Amount >= minAmount && s.Amount <= maxAmount).ToList();
+
+            return sales;
+        }
+
+        public List<Sale> GetSalesByDate(DateTime date)
+        {
+            var sales = _sales.Where(s => s.Date == date).ToList();
+
+            return sales;
+        }
+
+        public List<Sale> GetSalesByDateRange(DateTime minDate, DateTime maxDate)
+        {
+            if (minDate > maxDate)
+                throw new Exception("Min date can't be higher than max date");
+
+            var sales = _sales.Where(s => s.Date >= minDate && s.Date <= maxDate).ToList();
+
+            return sales;
+        }
+
+        public void DeleteSale(int id)
+        {
+            if (id < 0)
+                throw new Exception("ID of sale can't be less than zero!");
+
+            var sale = _sales.FirstOrDefault(p => p.ID == id)
+                ?? throw new Exception($"Sale with ID {id} was not found.");
+
+            foreach (var saleItem in sale.SaleItems)
+            {
+                saleItem.Product.Count += saleItem.Quantity;
+            }
+
+            _sales.Remove(sale);
+        }
+
+        public void ReturnProductFromSale(int saleID, Dictionary<int, int> products)
+        {
+            var sale = _sales.FirstOrDefault(s => s.ID == saleID)
+                ?? throw new Exception($"Sale with ID {saleID} was not found.");
+
+            var saleItemMap = sale.SaleItems.ToDictionary(si => si.Product.ID);
+
+            foreach (var item in products)
+            {
+                int productID = item.Key;
+                int count = item.Value;
+
+                if (count <= 0)
+                    throw new Exception("Returned product count must be greater than zero.");
+
+                if (!saleItemMap.TryGetValue(productID, out var saleItem))
+                    throw new Exception($"Sale does not contain product with ID {productID}.");
+
+                if (count > saleItem.Quantity)
+                    throw new Exception(
+                        $"You cannot return more than sold. Sold: {saleItem.Quantity}, Requested: {count}");
+            }
+
+            foreach (var item in products)
+            {
+                int productID = item.Key;
+                int count = item.Value;
+
+                var saleItem = saleItemMap[productID];
+
+                var product = _products.FirstOrDefault(p => p.ID == productID);
+                if (product == null)
+                {
+                    product = saleItem.Product;
+                    _products.Add(product);
+                }
+
+                sale.Amount -= count * saleItem.Product.Price;
+                saleItem.Quantity -= count;
+                product.Count += count;
+
+                if (saleItem.Quantity == 0)
+                    sale.SaleItems.Remove(saleItem);
+            }
+
+            if (sale.SaleItems.Count == 0)
+                _sales.Remove(sale);
         }
 
     }

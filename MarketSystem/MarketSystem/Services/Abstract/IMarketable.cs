@@ -16,7 +16,7 @@ namespace MarketSystem.Services.Abstract
         public List<Product> GetProductsByName(string name);
 
         public void AddSale(Dictionary<int, int> products); 
-        public void ReturnProductFromSale(int saleId,int productId,int count);
+        public void ReturnProductFromSale(int saleID, Dictionary<int, int> products);
         public void DeleteSale(int id);
         public List<Sale> GetSales();
         public List<Sale> GetSalesByDateRange(DateTime minDate, DateTime maxDate);

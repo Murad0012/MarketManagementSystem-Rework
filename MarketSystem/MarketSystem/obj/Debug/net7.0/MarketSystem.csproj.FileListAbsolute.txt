@@ -1,8 +1,3 @@
-/Users/muradmammadzada/Desktop/Console Application/MarketSystem/MarketSystem/obj/Debug/net7.0/MarketSystem.csproj.AssemblyReference.cache
-/Users/muradmammadzada/Desktop/Console Application/MarketSystem/MarketSystem/obj/Debug/net7.0/MarketSystem.GeneratedMSBuildEditorConfig.editorconfig
-/Users/muradmammadzada/Desktop/Console Application/MarketSystem/MarketSystem/obj/Debug/net7.0/MarketSystem.AssemblyInfoInputs.cache
-/Users/muradmammadzada/Desktop/Console Application/MarketSystem/MarketSystem/obj/Debug/net7.0/MarketSystem.AssemblyInfo.cs
-/Users/muradmammadzada/Desktop/Console Application/MarketSystem/MarketSystem/obj/Debug/net7.0/MarketSystem.csproj.CoreCompileInputs.cache
 /Users/muradmammadzada/Desktop/Console Application/MarketSystem/MarketSystem/bin/Debug/net7.0/MarketSystem
 /Users/muradmammadzada/Desktop/Console Application/MarketSystem/MarketSystem/bin/Debug/net7.0/MarketSystem.deps.json
 /Users/muradmammadzada/Desktop/Console Application/MarketSystem/MarketSystem/bin/Debug/net7.0/MarketSystem.runtimeconfig.json
@@ -10,6 +5,11 @@
 /Users/muradmammadzada/Desktop/Console Application/MarketSystem/MarketSystem/bin/Debug/net7.0/MarketSystem.pdb
 /Users/muradmammadzada/Desktop/Console Application/MarketSystem/MarketSystem/bin/Debug/net7.0/ConsoleTables.dll
 /Users/muradmammadzada/Desktop/Console Application/MarketSystem/MarketSystem/bin/Debug/net7.0/Wcwidth.dll
+/Users/muradmammadzada/Desktop/Console Application/MarketSystem/MarketSystem/obj/Debug/net7.0/MarketSystem.csproj.AssemblyReference.cache
+/Users/muradmammadzada/Desktop/Console Application/MarketSystem/MarketSystem/obj/Debug/net7.0/MarketSystem.GeneratedMSBuildEditorConfig.editorconfig
+/Users/muradmammadzada/Desktop/Console Application/MarketSystem/MarketSystem/obj/Debug/net7.0/MarketSystem.AssemblyInfoInputs.cache
+/Users/muradmammadzada/Desktop/Console Application/MarketSystem/MarketSystem/obj/Debug/net7.0/MarketSystem.AssemblyInfo.cs
+/Users/muradmammadzada/Desktop/Console Application/MarketSystem/MarketSystem/obj/Debug/net7.0/MarketSystem.csproj.CoreCompileInputs.cache
 /Users/muradmammadzada/Desktop/Console Application/MarketSystem/MarketSystem/obj/Debug/net7.0/MarketSystem.csproj.CopyComplete
 /Users/muradmammadzada/Desktop/Console Application/MarketSystem/MarketSystem/obj/Debug/net7.0/MarketSystem.dll
 /Users/muradmammadzada/Desktop/Console Application/MarketSystem/MarketSystem/obj/Debug/net7.0/refint/MarketSystem.dll

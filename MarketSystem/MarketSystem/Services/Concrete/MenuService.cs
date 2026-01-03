@@ -6,6 +6,7 @@ using ConsoleTables;
 using MarketSystem.Data.Enums;
 using MarketSystem.Data.Models;
 using MarketSystem.Services.Abstract;
+using Microsoft.VisualBasic.FileIO;
 using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace MarketSystem.Services.Concrete
@@ -248,7 +249,7 @@ namespace MarketSystem.Services.Concrete
         {
             try
             {
-                Console.WriteLine("Enter product's ID: ");
+                Console.WriteLine("Enter sale's ID: ");
                 int id = int.Parse(Console.ReadLine()!);
 
                 var sale = marketService.GetSale(id);
@@ -367,7 +368,7 @@ namespace MarketSystem.Services.Concrete
                     int count = int.Parse(Console.ReadLine()!);
 
                     if (products.ContainsKey(productID))
-                        products[productID] = (int)products[productID]! + count;
+                        products[productID] = products[productID]! + count;
                     else
                         products.Add(productID, count);
 
@@ -379,6 +380,67 @@ namespace MarketSystem.Services.Concrete
                 marketService.AddSale(products);
             }
             catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+        }
+
+        public static void MenuDeleteSale()
+        {
+            try
+            {
+                MenuGetSales();
+
+                Console.WriteLine("Enter sale's ID: ");
+                int id = int.Parse(Console.ReadLine()!);
+
+                marketService.DeleteSale(id);
+
+                Console.WriteLine($"Sale with ID:{id} was deleted!");
+
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+        }
+
+        public static void MenuReturnProductFromSale()
+        {
+            try
+            {
+                MenuGetSales();
+
+                Console.WriteLine("Complete ");
+
+                Console.WriteLine("Enter sale's ID: ");
+                int saleID = int.Parse(Console.ReadLine()!);
+
+                string option;
+                Dictionary<int, int> products = new Dictionary<int, int>();
+                do
+                {
+                    Console.WriteLine("Enter product's ID: ");
+                    int productID = int.Parse(Console.ReadLine()!);
+
+                    Console.WriteLine("Enter product's count: ");
+                    int count = int.Parse(Console.ReadLine()!);
+
+                    if (products.ContainsKey(productID))
+                        products[productID] = products[productID]! + count;
+                    else
+                        products.Add(productID, count);
+
+                    Console.WriteLine("Do you want to continue: ");
+                    option = Console.ReadLine()!;
+
+                } while (!option.Equals("no", StringComparison.OrdinalIgnoreCase));
+
+                marketService.ReturnProductFromSale(saleID, products);
+
+                Console.WriteLine("Complete");
+            }
+            catch(Exception ex)
             {
                 Console.WriteLine(ex.Message);
             }
