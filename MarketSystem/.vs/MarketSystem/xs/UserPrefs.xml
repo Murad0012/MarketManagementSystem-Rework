@@ -1,25 +1,18 @@
 ﻿<Properties StartupConfiguration="{9101C5A6-179D-4852-817A-BE6595F74562}|Default">
-  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
-  <MonoDevelop.Ide.ItemProperties.MarketSystem PreferredExecutionTarget="MonoDevelop.Default" />
-  <MonoDevelop.Ide.DebuggingService.Breakpoints>
-    <BreakpointStore />
-  </MonoDevelop.Ide.DebuggingService.Breakpoints>
-  <MultiItemStartupConfigurations />
-  <MonoDevelop.Ide.Workbench ActiveDocument="MarketSystem/Services/Concrete/MenuService.cs">
-    <Files>
-      <File FileName="MarketSystem/Services/Concrete/MenuService.cs" Line="203" Column="51" />
-      <File FileName="MarketSystem/Services/Concrete/MarketService.cs" Line="120" Column="10" />
-    </Files>
+  <MonoDevelop.Ide.Workbench>
     <Pads>
       <Pad Id="ProjectPad">
         <State name="__root__">
           <Node name="MarketSystem" expanded="True">
             <Node name="MarketSystem">
+              <Node name="Data">
+                <Node name="Models">
+                  <Node name="SaleItem.cs" selected="True" />
+                </Node>
+              </Node>
               <Node name="Services" expanded="True">
                 <Node name="Abstract" expanded="True" />
-                <Node name="Concrete" expanded="True">
-                  <Node name="MenuService.cs" selected="True" />
-                </Node>
+                <Node name="Concrete" expanded="True" />
               </Node>
             </Node>
           </Node>
@@ -27,5 +20,11 @@
       </Pad>
     </Pads>
   </MonoDevelop.Ide.Workbench>
+  <MultiItemStartupConfigurations />
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.ItemProperties.MarketSystem PreferredExecutionTarget="MonoDevelop.Default" />
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
 </Properties>

@@ -87,6 +87,7 @@ namespace MarketSystem.Helpers
                 switch (selectOption)
                 {
                     case 1:
+                        MenuService.MenuAddSale();
                         break;
                     case 2:
                         break;

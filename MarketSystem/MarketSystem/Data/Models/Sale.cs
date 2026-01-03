@@ -14,8 +14,8 @@ namespace MarketSystem.Data.Models
         }
 
         public decimal Amount { get; set; }
-        public List<SaleItem> SaleItems { get; set; }
-        public DateTime Date { get; set; }
+        public List<SaleItem> SaleItems { get; set; } = new();
+        public DateTime Date { get; set; } = DateTime.Now;
     }
 }
 

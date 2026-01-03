@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections;
+using System.Collections.Generic;
 using System.Reflection.Emit;
 using ConsoleTables;
 using MarketSystem.Data.Enums;
@@ -262,7 +264,7 @@ namespace MarketSystem.Services.Concrete
 
                 foreach (var saleItem in sale.SaleItems)
                 {
-                    table2.AddRow(saleItem.ID, saleItem.Product.Name, saleItem.Count);
+                    table2.AddRow(saleItem.ID, saleItem.Product.Name, saleItem.Quantity);
                 }
 
                 table2.Write();
@@ -343,6 +345,40 @@ namespace MarketSystem.Services.Concrete
                 table.Write();
             }
             catch(Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+        }
+
+        public static void MenuAddSale()
+        {
+            try
+            {
+                string option;
+                Dictionary<int, int> products = new Dictionary<int, int>();
+                do
+                {
+                    MenuGetProducts();
+
+                    Console.WriteLine("Enter product ID: ");
+                    int productID = int.Parse(Console.ReadLine()!);
+
+                    Console.WriteLine("Enter product count: ");
+                    int count = int.Parse(Console.ReadLine()!);
+
+                    if (products.ContainsKey(productID))
+                        products[productID] = (int)products[productID]! + count;
+                    else
+                        products.Add(productID, count);
+
+                    Console.WriteLine("Do you want to continue: ");
+                    option = Console.ReadLine()!;
+
+                } while (!option.Equals("no", StringComparison.OrdinalIgnoreCase));
+
+                marketService.AddSale(products);
+            }
+            catch (Exception ex)
             {
                 Console.WriteLine(ex.Message);
             }

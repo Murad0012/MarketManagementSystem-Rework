@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using MarketSystem.Data.Enums;
 using MarketSystem.Data.Models;
 
@@ -14,7 +15,7 @@ namespace MarketSystem.Services.Abstract
         public List<Product> GetProductsByPriceRange(int minPrice, int maxPrice);
         public List<Product> GetProductsByName(string name);
 
-        public void AddSale(); // method isn't ready
+        public void AddSale(Dictionary<int, int> products); 
         public void ReturnProductFromSale(int saleId,int productId,int count);
         public void DeleteSale(int id);
         public List<Sale> GetSales();

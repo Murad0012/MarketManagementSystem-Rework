@@ -14,7 +14,7 @@ namespace MarketSystem.Data.Models
         }
 
         public Product Product { get; set; }
-        public int Count { get; set; }
+        public int Quantity { get; set; }
     }
 }
 

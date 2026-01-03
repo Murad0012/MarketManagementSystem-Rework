@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Diagnostics;
 using MarketSystem.Data.Enums;
 using MarketSystem.Data.Models;
@@ -82,6 +83,9 @@ namespace MarketSystem.Services.Concrete
                 throw new Exception("ID of product can't be less than zero!");
 
             var product = _products.FirstOrDefault(p => p.ID == id);
+
+            if (product == null)
+                throw new Exception("Product wasn't found");
 
             _products.Remove(product!);
         }
@@ -178,9 +182,47 @@ namespace MarketSystem.Services.Concrete
             throw new NotImplementedException();
         }
         
-        public void AddSale()
+        public void AddSale(Dictionary<int, int> products) 
         {
-            throw new NotImplementedException();
+            foreach (var item in products)
+            {
+                int productID = item.Key;
+                int quantity = item.Value!;
+
+                var product = _products.FirstOrDefault(p => p.ID == productID)
+                    ?? throw new Exception($"Product with ID {productID} was not found.");
+
+                if (product.Count < quantity)
+                    throw new Exception(
+                        $"Not enough stock for '{product.Name}'. Available: {product.Count}, Requested: {quantity}");
+            }
+
+            var sale = new Sale();
+
+            foreach (var item in products)
+            {
+                int productID = item.Key;
+                int quantity = item.Value!;
+
+                var product = _products.FirstOrDefault(p => p.ID == productID);
+
+                product!.Count -= quantity;
+
+                if (product.Count == 0)
+                    _products.Remove(product);
+
+                var saleItem = new SaleItem()
+                {
+                    Product = product,
+                    Quantity = quantity
+                };
+
+                sale.Amount += product.Price * quantity;
+
+                sale.SaleItems.Add(saleItem);
+            }
+
+            _sales.Add(sale);
         }
 
         public void ReturnProductFromSale(int saleId, int productId, int count)
