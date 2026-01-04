@@ -15,13 +15,14 @@ namespace MarketSystem.Services.Concrete
 	{
         private static IMarketable marketService = new MarketService();
 
+        // Product methods
         public static void MenuGetProducts()
         {
             var products = marketService.GetProducts();
 
-            if(products.Count() == 0)
+            if(products.Count == 0)
             {
-                Console.WriteLine("Products list is empty!");
+                Console.WriteLine("Product list is empty!");
                 return;
             }
 
@@ -29,7 +30,13 @@ namespace MarketSystem.Services.Concrete
 
             foreach (var product in products!)
             {
-                table.AddRow(product.ID, product.Name, product.Category, product.Count, product.Price);
+                table.AddRow(
+                    product.ID,
+                    product.Name,
+                    product.Category,
+                    product.Count,
+                    product.Price
+                    );
             }
 
             table.Write();
@@ -127,7 +134,7 @@ namespace MarketSystem.Services.Concrete
 
                 marketService.UpdateProduct(id, name, price, category, count);
 
-                Console.WriteLine($"Product with ID:{id} was updated!");
+                Console.WriteLine($"Product with ID:{id} was updated.");
 
             }
             catch (Exception ex)
@@ -138,42 +145,35 @@ namespace MarketSystem.Services.Concrete
 
         public static void MenuGetProductsByCategory()
         {
-            try
+            var table1 = new ConsoleTable("Category");
+
+            var categories = Enum.GetNames(typeof(Category));
+
+            int option = 1;
+            foreach (string item in categories)
             {
-                var table1 = new ConsoleTable("Category");
-
-                var categories = Enum.GetNames(typeof(Category));
-
-                int option = 1;
-                foreach (string item in categories)
-                {
-                    table1.AddRow($"{item} - {option++}");
-                }
-
-                table1.Write();
-
-                Console.WriteLine("Enter product's category:");
-                if (!Enum.TryParse<Category>(Console.ReadLine(), out var category))
-                {
-                    Console.WriteLine("Invalid category.");
-                    return;
-                }
-
-                var products = marketService.GetProductsByCategory(category);
-
-                var table2 = new ConsoleTable("ID", "Name", "Category", "Count", "Price");
-
-                foreach (var product in products!)
-                {
-                    table2.AddRow(product.ID, product.Name, product.Category, product.Count, product.Price);
-                }
-
-                table2.Write();
+                table1.AddRow($"{item} - {option++}");
             }
-            catch (Exception ex)
+
+            table1.Write();
+
+            Console.WriteLine("Enter product's category:");
+            if (!Enum.TryParse<Category>(Console.ReadLine(), out var category))
             {
-                Console.WriteLine(ex.Message);
+                Console.WriteLine("No products found in this category.");
+                return;
             }
+
+            var products = marketService.GetProductsByCategory(category);
+
+            var table2 = new ConsoleTable("ID", "Name", "Category", "Count", "Price");
+
+            foreach (var product in products)
+            {
+                table2.AddRow(product.ID, product.Name, product.Category, product.Count, product.Price);
+            }
+
+            table2.Write();
         }
 
         public static void MenuGetProductsByPriceRange()
@@ -181,18 +181,30 @@ namespace MarketSystem.Services.Concrete
             try
             {
                 Console.WriteLine("Enter min Price: ");
-                int minPrice = int.Parse(Console.ReadLine()!);
+                decimal minPrice = decimal.Parse(Console.ReadLine()!);
 
                 Console.WriteLine("Enter max Price: ");
-                int maxPrice = int.Parse(Console.ReadLine()!);
+                decimal maxPrice = decimal.Parse(Console.ReadLine()!);
 
                 var products = marketService.GetProductsByPriceRange(minPrice, maxPrice);
 
+                if (products.Count == 0)
+                {
+                    Console.WriteLine("No products found in this price range.");
+                    return;
+                }
+
                 var table = new ConsoleTable("ID", "Name", "Category", "Count", "Price");
 
-                foreach (var product in products!)
+                foreach (var product in products)
                 {
-                    table.AddRow(product.ID, product.Name, product.Category, product.Count, product.Price);
+                    table.AddRow
+                        (product.ID,
+                        product.Name,
+                        product.Category,
+                        product.Count,
+                        product.Price
+                        );
                 }
 
                 table.Write();
@@ -213,9 +225,15 @@ namespace MarketSystem.Services.Concrete
 
                 var products = marketService.GetProductsByName(name);
 
+                if (products.Count == 0)
+                {
+                    Console.WriteLine("No products found with this name.");
+                    return;
+                }
+
                 var table = new ConsoleTable("ID", "Name", "Category", "Count", "Price");
 
-                foreach (var product in products!)
+                foreach (var product in products)
                 {
                     table.AddRow(product.ID, product.Name, product.Category, product.Count, product.Price);
                 }
@@ -230,9 +248,16 @@ namespace MarketSystem.Services.Concrete
         }
 
 
+        // Sale methods
         public static void MenuGetSales()
         {
             var sales = marketService.GetSales();
+
+            if (sales.Count == 0)
+            {
+                Console.WriteLine("No sales found.");
+                return;
+            }
 
             var table = new ConsoleTable("ID", "Amount", "Products Count", "Date");
 
@@ -242,7 +267,6 @@ namespace MarketSystem.Services.Concrete
             }
 
             table.Write();
-
         }
 
         public static void MenuGetSale()
@@ -256,7 +280,7 @@ namespace MarketSystem.Services.Concrete
 
                 var table1 = new ConsoleTable("Sale ID", "Amount", "Products Count", "Date");
 
-                table1.AddRow(sale.ID, sale.Amount, sale.SaleItems.Count(), sale.Date);
+                table1.AddRow(sale.ID, sale.Amount, sale.SaleItems.Count, sale.Date);
                 
                 table1.Write();
                 Console.WriteLine("====================================================");
@@ -265,7 +289,11 @@ namespace MarketSystem.Services.Concrete
 
                 foreach (var saleItem in sale.SaleItems)
                 {
-                    table2.AddRow(saleItem.ID, saleItem.Product.Name, saleItem.Quantity);
+                    table2.AddRow(
+                        saleItem.Product.ID,
+                        saleItem.Product.Name,
+                        saleItem.Quantity
+                    );
                 }
 
                 table2.Write();
@@ -282,12 +310,18 @@ namespace MarketSystem.Services.Concrete
             try
             {
                 Console.WriteLine("Enter min amount: ");
-                int minAmount = int.Parse(Console.ReadLine()!);
+                decimal minAmount = decimal.Parse(Console.ReadLine()!);
 
                 Console.WriteLine("Enter max amount: ");
-                int maxAmount = int.Parse(Console.ReadLine()!);
+                decimal maxAmount = decimal.Parse(Console.ReadLine()!);
 
                 var sales = marketService.GetSalesByAmountRange(minAmount,maxAmount);
+
+                if (sales.Count == 0)
+                {
+                    Console.WriteLine("No sales found in this amount range.");
+                    return;
+                }
 
                 var table = new ConsoleTable("ID", "Amount", "Products Count", "Date");
 
@@ -308,21 +342,29 @@ namespace MarketSystem.Services.Concrete
         {
             try
             {
-                Console.WriteLine("Enter date (dd.MM.yyyy HH:mm:ss):");
-                var date = DateTime.ParseExact(Console.ReadLine()!, "dd.MM.yyyy HH:mm:ss", null);
+                Console.WriteLine("Enter date (dd.MM.yyyy):");
+                var date = DateTime.ParseExact(Console.ReadLine()!, "dd.MM.yyyy", null);
 
                 var table = new ConsoleTable("Sale's ID", "Amount", "Date");
 
-                foreach (var sale in marketService.GetSalesByDate(date))
+                var sales = marketService.GetSalesByDate(date);
+
+                if (sales.Count == 0)
                 {
-                    table.AddRow(sale.ID, sale.Amount, sale.SaleItems.Count, sale.Date);
+                    Console.WriteLine("No sales found on this date.");
+                    return;
+                }
+
+                foreach (var sale in sales)
+                {
+                    table.AddRow(sale.ID, sale.Amount, sale.Date);
                 }
 
                 table.Write();
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
-                Console.WriteLine(ex.Message);
+                Console.WriteLine($"Error: {ex.Message}");
             }
         }
 
@@ -330,24 +372,25 @@ namespace MarketSystem.Services.Concrete
         {
             try
             {
-                Console.WriteLine("Enter min date (dd.MM.yyyy HH:mm:ss):");
+                Console.WriteLine("Enter minumum (dd.MM.yyyy HH:mm:ss):");
                 var minDate = DateTime.ParseExact(Console.ReadLine()!, "dd.MM.yyyy HH:mm:ss", null);
 
-                Console.WriteLine("Enter max date (dd.MM.yyyy HH:mm:ss):");
+                Console.WriteLine("Enter maximum date (dd.MM.yyyy HH:mm:ss):");
                 var maxDate = DateTime.ParseExact(Console.ReadLine()!, "dd.MM.yyyy HH:mm:ss", null);
 
-                var table = new ConsoleTable("Sale's ID", "Amount", "Products Count", "Date");
+                var table = new ConsoleTable("Sale's ID", "Amount", "Date");
 
                 foreach (var sale in marketService.GetSalesByDateRange(minDate, maxDate))
                 {
-                    table.AddRow(sale.ID, sale.Amount, sale.SaleItems.Count, sale.Date);
+                    table.AddRow(sale.ID, sale.Amount, sale.Date);
                 }
 
                 table.Write();
+
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
-                Console.WriteLine(ex.Message);
+                Console.WriteLine($"Error: {ex.Message}");
             }
         }
 
@@ -357,10 +400,9 @@ namespace MarketSystem.Services.Concrete
             {
                 string option;
                 Dictionary<int, int> products = new Dictionary<int, int>();
+                MenuGetProducts();
                 do
                 {
-                    MenuGetProducts();
-
                     Console.WriteLine("Enter product ID: ");
                     int productID = int.Parse(Console.ReadLine()!);
 
@@ -378,6 +420,8 @@ namespace MarketSystem.Services.Concrete
                 } while (!option.Equals("no", StringComparison.OrdinalIgnoreCase));
 
                 marketService.AddSale(products);
+
+                Console.WriteLine("Finished!");
             }
             catch (Exception ex)
             {

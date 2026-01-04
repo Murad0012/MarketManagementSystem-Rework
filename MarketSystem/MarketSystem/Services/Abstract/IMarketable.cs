@@ -12,7 +12,7 @@ namespace MarketSystem.Services.Abstract
 		public void DeleteProduct(int id);
 		public List<Product> GetProducts();
         public List<Product> GetProductsByCategory(Category category);
-        public List<Product> GetProductsByPriceRange(int minPrice, int maxPrice);
+        public List<Product> GetProductsByPriceRange(decimal minPrice, decimal maxPrice);
         public List<Product> GetProductsByName(string name);
 
         public void AddSale(Dictionary<int, int> products); 
@@ -20,7 +20,7 @@ namespace MarketSystem.Services.Abstract
         public void DeleteSale(int id);
         public List<Sale> GetSales();
         public List<Sale> GetSalesByDateRange(DateTime minDate, DateTime maxDate);
-        public List<Sale> GetSalesByAmountRange(int minAmount, int maxAmount);
+        public List<Sale> GetSalesByAmountRange(decimal minAmount, decimal maxAmount);
         public List<Sale> GetSalesByDate(DateTime date);
         public Sale GetSale(int id);
 

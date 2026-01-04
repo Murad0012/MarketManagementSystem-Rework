@@ -21,14 +21,22 @@ namespace MarketSystem.Services.Concrete
         public int AddProduct(string name, decimal price, Category category, int count)
         {
             if (string.IsNullOrWhiteSpace(name))
-                throw new Exception("Name of product can't be empty!");
+                throw new Exception("Product name cannot be empty!");
 
             if (price < 0)
-                throw new Exception("Price of product can't be less than zero!");
+                throw new Exception("Product price cannot be less than zero!");
 
             if(count < 0)
-                throw new Exception("Count of product can't be less than zero!");
+                throw new Exception("Product count cannot be less than zero!");
 
+            var existingProduct = _products
+                .FirstOrDefault(p => p.Name == name && p.Category == category && p.Price == price);
+
+            if (existingProduct != null)
+            {
+                existingProduct.Count += count;
+                return existingProduct.ID;
+            }
 
             var product = new Product()
             {
@@ -38,16 +46,6 @@ namespace MarketSystem.Services.Concrete
                 Category = category
             };
 
-            if (_products.Any(p => p.Name == name && p.Category == category && p.Price == price))
-            {
-                var a = _products.FirstOrDefault(p => p.Name == name && p.Category == category && p.Price == price);
-
-                a!.Count += count;
-
-                return product.ID;
-
-            }
-
             _products.Add(product);
 
             return product.ID;
@@ -55,26 +53,22 @@ namespace MarketSystem.Services.Concrete
 
         public void UpdateProduct(int id, string name, decimal price, Category category, int count)
         {
-            var product = _products.FirstOrDefault(p => p.ID == id);
-
-            if (product == null)
-                throw new Exception($"Product with ID:{id} was not found! ");
-
             if (string.IsNullOrWhiteSpace(name))
-                throw new Exception("Name of product can't be empty!");
+                throw new Exception("Product name cannot be empty!");
 
             if (price < 0)
-                throw new Exception("Price of product can't be less than zero!");
+                throw new Exception("Product price cannot be less than zero!");
 
             if (count < 0)
-                throw new Exception("Count of product can't be less than zero!");
+                throw new Exception("Product count cannot be less than zero!");
 
+            var product = _products.FirstOrDefault(p => p.ID == id)
+                ?? throw new Exception($"Product with ID:{id} was not found! ");
 
-            product!.Name = name;
+            product.Name = name;
             product.Category = category;
             product.Count = count;
             product.Price = price;
-
         }
 
         public void DeleteProduct(int id)
@@ -83,7 +77,7 @@ namespace MarketSystem.Services.Concrete
                 throw new Exception("ID of product can't be less than zero!");
 
             var product = _products.FirstOrDefault(p => p.ID == id)
-                ?? throw new Exception("Product wasn't found");
+                ?? throw new Exception($"Product with ID {id} was not found!");
 
             _products.Remove(product!);
         }
@@ -95,18 +89,19 @@ namespace MarketSystem.Services.Concrete
             return products;
         }
 
-        public List<Product> GetProductsByPriceRange(int minPrice, int maxPrice)
+        public List<Product> GetProductsByPriceRange(decimal minPrice, decimal maxPrice)
         {
             if (minPrice > maxPrice)
-                throw new Exception("Min price can't be higher than max price");
+                throw new Exception("Minimum price cannot be greater than maximum price!");
 
             if (minPrice < 0)
-                throw new Exception("Min price can't be less than zero");
+                throw new Exception("Min price can't be less than zero!");
 
             if (maxPrice < 0)
-                throw new Exception("Max price can't be less than zero");
+                throw new Exception("Max price can't be less than zero.");
 
-            var products = _products.Where(p => p.Price >= minPrice && p.Price <= maxPrice).ToList();
+            var products = _products
+                .Where(p => p.Price >= minPrice && p.Price <= maxPrice).ToList();
 
             return products;
         }
@@ -114,12 +109,15 @@ namespace MarketSystem.Services.Concrete
         public List<Product> GetProductsByName(string name)
         {
             if (string.IsNullOrWhiteSpace(name))
-                throw new Exception("Name of product can't be empty!");
+                throw new Exception("Product name cannot be empty.");
 
-            var products = _products.Where(p => p.Name.ToLower().Contains(name.ToLower())).ToList();
+            var products = _products
+                .Where(p => p.Name.Contains(name, StringComparison.OrdinalIgnoreCase))
+                .ToList();
 
             return products;
         }
+
 
         // Sale Methods
         public List<Sale> GetSales()
@@ -130,14 +128,12 @@ namespace MarketSystem.Services.Concrete
         public Sale GetSale(int id)
         {
             if (id < 0)
-                throw new Exception("ID of product can't be less than zero!");
+                throw new Exception("Sale ID must be greater than zero!");
 
-            var sale = _sales.FirstOrDefault(s => s.ID == id);
+            var sale = _sales.FirstOrDefault(s => s.ID == id)
+                ?? throw new Exception($"Sale with ID {id} was not found!");
 
-            if (sale == null)
-                throw new Exception("Sale was not found!");
-
-            return sale!;
+            return sale;
         }
 
         public void AddSale(Dictionary<int, int> products)
@@ -183,20 +179,20 @@ namespace MarketSystem.Services.Concrete
             _sales.Add(sale);
         }
 
-        public List<Sale> GetSalesByAmountRange(int minAmount, int maxAmount)
+        public List<Sale> GetSalesByAmountRange(decimal minAmount, decimal maxAmount)
         {
-            if(minAmount > maxAmount)
-                throw new Exception("Min amount can't be higher than max amount");
+            if (minAmount > maxAmount)
+                throw new Exception("Minimum amount cannot be greater than maximum amount.");
 
             if (minAmount < 0)
-                throw new Exception("Min amount can't be less than zero");
+                throw new Exception("Minimum amount cannot be less than zero.");
 
             if (maxAmount < 0)
-                throw new Exception("Max amount can't be less than zero");
+                throw new Exception("Maximum amount cannot be less than zero.");
 
-            var sales = _sales.Where(s => s.Amount >= minAmount && s.Amount <= maxAmount).ToList();
-
-            return sales;
+            return _sales
+                .Where(s => s.Amount >= minAmount && s.Amount <= maxAmount)
+                .ToList();
         }
 
         public List<Sale> GetSalesByDate(DateTime date)
@@ -209,9 +205,10 @@ namespace MarketSystem.Services.Concrete
         public List<Sale> GetSalesByDateRange(DateTime minDate, DateTime maxDate)
         {
             if (minDate > maxDate)
-                throw new Exception("Min date can't be higher than max date");
+                throw new Exception("Min date can't be larger than max date!");
 
-            var sales = _sales.Where(s => s.Date >= minDate && s.Date <= maxDate).ToList();
+            var sales = _sales.Where(x => x.Date >= minDate && x.Date <= maxDate).ToList() ??
+                throw new Exception($"Sale was not found!");
 
             return sales;
         }
@@ -283,4 +280,3 @@ namespace MarketSystem.Services.Concrete
 
     }
 }
-
