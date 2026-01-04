@@ -33,7 +33,7 @@ class Program
                     SubMenuHelper.DisplaySaleMenu();
                     break;
                 case 0:
-                    Console.WriteLine("Bye!");
+                    Console.WriteLine("Goodbye!");
                     break;
                 default:
                     Console.WriteLine("No such option!");
